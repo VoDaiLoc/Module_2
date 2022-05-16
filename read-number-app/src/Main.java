@@ -5,42 +5,52 @@ public class Main {
         int number;
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println("Nhập vào số nguyên (0 <= number < 1000: ");
+            System.out.println("Nhập vào số nguyên (0 <= number < 1000): ");
             number = scanner.nextInt();
+            while (number >= 0 && number < 1000) {
+                int first = number / 100;
+                int second = (number % 100) / 10;
+                int third = number % 10;
+                if (number < 10) {
+                    String result = zeroToNine(number);
+                    System.out.println(result);
+                } else if (number < 20) {
+                    String result = _10_to_19(third);
+                    System.out.println(result);
+                } else if (number < 100) {
+                    if (third != 0) {
+                        String result = _20_to_99(second) + " " + zeroToNine(third);
+                        System.out.println(result);
+                    } else {
+                        String result = _20_to_99(second);
+                        System.out.println(result);
+                    }
+                } else {
+                    if (number % 100 < 10) {
+                        if (number % 100 == 0) {
+                            String result = zeroToNine(first) + " hundred";
+                            System.out.println(result);
+                        } else {
+                            String result = zeroToNine(first) + " hundred and " + zeroToNine(third);
+                            System.out.println(result);
+                        }
+                    } else if (number % 100 < 20) {
+                        String result = zeroToNine(first) + " hundred and " + _10_to_19(third);
+                        System.out.println(result);
+                    } else if (number % 100 < 100) {
+                        if (third != 0) {
+                            String result = zeroToNine(first) + " hundred and " + _20_to_99(second) + " " + zeroToNine(third);
+                            System.out.println(result);
+                        } else {
+                            String result = zeroToNine(first) + " hundred and " + _20_to_99(second);
+                            System.out.println(result);
+                        }
+                    }
+                }
+                System.out.println("Nhập vào số nguyên (0 <= number < 1000): ");
+                number = scanner.nextInt();
+            }
         } while (number < 0 || number >= 1000);
-        int first = number / 100;
-        int second = (number % 100) / 10;
-        int third = number % 10;
-        if (number < 10) {
-            String result = zeroToNine(number);
-            System.out.println(result);
-            return;
-        }
-        if (number < 19) {
-            String result = _10_to_19(third);
-            System.out.println(result);
-            return;
-        }
-        if (number < 99) {
-            if (third != 0) {
-                String result = _20_to_99(second) + " " + zeroToNine(third);
-                System.out.println(result);
-                return;
-            }
-            String result = _20_to_99(second);
-            System.out.println(result);
-            return;
-        }
-        if (number < 1000) {
-            if (third != 0) {
-                String result = zeroToNine(first) + " hundred and " + _20_to_99(second) + " " + zeroToNine(third);
-                System.out.println(result);
-                return;
-            }
-            String result = zeroToNine(first) + " hundred and " + _20_to_99(second);
-            System.out.println(result);
-            return;
-        }
     }
 
     public static String zeroToNine(int number) {
@@ -133,6 +143,7 @@ public class Main {
                 break;
             case 6:
                 read = "sixty";
+                break;
             case 7:
                 read = "seventy";
                 break;
